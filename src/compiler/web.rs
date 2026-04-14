@@ -1722,7 +1722,7 @@ fn emit_think_fn(think: &ThinkDef, tap_id: &mut u32, tap_actions: &mut Vec<TapAc
             .body
             .iter()
             .filter(|s| !matches!(s, Stmt::Expr(Expr::Nothing(_))))
-            .map(|s| format!("    {}", emit_stmt(s, 1)))
+            .map(|s| format!("    {}", wasm_emit_stmt(s, 1)))
             .collect();
         out.push_str(&format!(
             "fn {}({}) -> {} {{\n{}\n}}\n",
@@ -1734,6 +1734,28 @@ fn emit_think_fn(think: &ThinkDef, tap_id: &mut u32, tap_actions: &mut Vec<TapAc
     }
 
     out
+}
+
+// ─── WASM-safe statement emitter ────────────────────────────────────────────
+// The shared emit_stmt maps println/print → println!() which doesn't exist in
+// no_std. Suppress those and any other std-only calls in the WASM target.
+fn wasm_emit_stmt(stmt: &Stmt, indent: usize) -> String {
+    let pad = "    ".repeat(indent);
+    // Check for bare identifier expressions like `println;` or `print;`
+    if let Stmt::Expr(Expr::Ident(name, _)) = stmt {
+        if matches!(name.as_str(), "println" | "print" | "input" | "exit") {
+            return format!("{}// {} suppressed (no stdout in wasm32)", pad, name);
+        }
+    }
+    // Check for call expressions println(...) / print(...)
+    if let Stmt::Expr(Expr::Call { func, .. }) = stmt {
+        if let Expr::Ident(name, _) = func.as_ref() {
+            if matches!(name.as_str(), "println" | "print" | "input" | "exit") {
+                return format!("{}// {} suppressed (no stdout in wasm32)", pad, name);
+            }
+        }
+    }
+    emit_stmt(stmt, indent)
 }
 
 // ─── Helper utilities ────────────────────────────────────────────────────────
