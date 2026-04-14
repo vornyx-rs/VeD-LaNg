@@ -2490,19 +2490,19 @@ fn parse_tap(cursor: &mut Cursor, source: &str) -> ParseResult<UiNode> {
                     // Action arrow - parse the action statements
                     Token::FatArrow => {
                         cursor.advance();
-                        // The action statement follows on the same line or indented
                         cursor.skip_newlines();
-                        if let Some(indent) = cursor.check_indent() {
-                            if indent == indent_level {
-                                cursor.advance();
+                        // Multi-line body (=> on own line, stmts indented below)
+                        // or single-line body (=> stmt on same line)
+                        if cursor.check_indent().is_some() {
+                            match parse_indented_block(cursor, source, parse_stmt) {
+                                Ok(stmts) => action.extend(stmts),
+                                Err(_) => {}
                             }
-                        }
-                        // Parse the action statement
-                        match parse_stmt(cursor, source) {
-                            Ok(stmt) => {
-                                action.push(stmt);
+                        } else {
+                            match parse_stmt(cursor, source) {
+                                Ok(stmt) => action.push(stmt),
+                                Err(_) => {}
                             }
-                            Err(_e) => {}
                         }
                     }
                     Token::Dedent => {
