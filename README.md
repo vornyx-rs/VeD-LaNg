@@ -907,6 +907,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Key areas where contributions are most n
 
 ---
 
+## Vibe Coded
+
+This project was built for fun — a vibe coding experiment to see how far a language compiler could be taken in one go. It is not backed by a company or team. There are known gaps (see [Implementation Status](#implementation-status)). If you find something broken, open an issue rather than a meme. Contributions are genuinely welcome.
+
+---
+
 ## License
 
 VED is dual-licensed under [MIT](LICENSE-MIT) and [Apache-2.0](LICENSE-APACHE). You may use it under either license.
