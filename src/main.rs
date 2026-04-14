@@ -249,20 +249,32 @@ async fn cmd_run(file: PathBuf, target: Target, _args: Vec<String>, verbose: boo
                 .map_err(|e| miette::miette!("Runtime error: {}", e))?;
         }
         Target::Web => {
-            // `run` for web: build to dist/ then tell the user how to open it
             let out = std::path::PathBuf::from("dist");
             fs::create_dir_all(&out)
                 .into_diagnostic()
                 .wrap_err("Failed to create dist/")?;
+
             compiler::web::emit(_typed, &out, false)
                 .map_err(|e| miette::miette!("Compile error: {:?}", e))?;
+
+            let port = dev::server::find_port(5173);
+            let url = format!("http://localhost:{}", port);
+
             println!();
-            println!("Built to dist/");
-            println!("  Open dist/index.html in a browser, or run a local server:");
-            println!("  python3 -m http.server 8080 --directory dist");
+            println!("  VED dev  →  {}", url);
+            println!("  Ctrl+C to stop");
             println!();
-            println!("To build explicitly:");
-            println!("  vedc build {} --target web --out dist", file.display());
+
+            // Open browser after a short delay so the server is ready
+            let open_url = url.clone();
+            tokio::spawn(async move {
+                tokio::time::sleep(std::time::Duration::from_millis(150)).await;
+                dev::server::open_browser(&open_url);
+            });
+
+            dev::server::serve(out, port)
+                .await
+                .map_err(|e| miette::miette!("{}", e))?;
         }
         _ => {
             if verbose {
