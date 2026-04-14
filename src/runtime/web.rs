@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 use crate::ast::*;
 use miette::{Diagnostic, SourceSpan};
 use thiserror::Error;

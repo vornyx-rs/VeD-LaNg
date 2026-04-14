@@ -249,11 +249,20 @@ async fn cmd_run(file: PathBuf, target: Target, _args: Vec<String>, verbose: boo
                 .map_err(|e| miette::miette!("Runtime error: {}", e))?;
         }
         Target::Web => {
-            if verbose {
-                eprintln!("[vedc] Starting web preview...");
-            }
-            runtime::web::start(_typed, verbose)
-                .map_err(|e| miette::miette!("Runtime error: {}", e))?;
+            // `run` for web: build to dist/ then tell the user how to open it
+            let out = std::path::PathBuf::from("dist");
+            fs::create_dir_all(&out)
+                .into_diagnostic()
+                .wrap_err("Failed to create dist/")?;
+            compiler::web::emit(_typed, &out, false)
+                .map_err(|e| miette::miette!("Compile error: {:?}", e))?;
+            println!();
+            println!("Built to dist/");
+            println!("  Open dist/index.html in a browser, or run a local server:");
+            println!("  python3 -m http.server 8080 --directory dist");
+            println!();
+            println!("To build explicitly:");
+            println!("  vedc build {} --target web --out dist", file.display());
         }
         _ => {
             if verbose {
