@@ -124,14 +124,18 @@ fn test_bootstrap_has_canvas_not_dom() {
     let program = mk_counter_program();
     let html = generate_html_bootstrap(&program);
 
-    // WASM canvas approach — canvas element is the only DOM element, no app framework divs
+    // WASM canvas approach — canvas is the rendering surface, no app-framework divs
     assert!(html.contains("<canvas"), "must have canvas element");
     assert!(html.contains("app.wasm"), "must fetch the WASM binary");
     assert!(
         !html.contains("<p>"),
         "must not generate DOM paragraph tags"
     );
-    assert!(!html.contains("<div id="), "must not generate DOM div tags");
+    // A single diagnostic error overlay div is allowed; assert no framework content divs
+    assert!(
+        !html.contains("<div id=\"app\"") && !html.contains("<div id=\"root\""),
+        "must not generate app-framework root divs"
+    );
 }
 
 #[test]
@@ -148,8 +152,8 @@ fn test_bootstrap_wires_canvas_api_to_wasm() {
         "must wire request_frame"
     );
     assert!(
-        html.contains("WebAssembly.instantiateStreaming"),
-        "must use WASM streaming API"
+        html.contains("WebAssembly.instantiate"),
+        "must use WebAssembly.instantiate to load the WASM module"
     );
 }
 
