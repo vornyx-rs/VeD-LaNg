@@ -2494,15 +2494,11 @@ fn parse_tap(cursor: &mut Cursor, source: &str) -> ParseResult<UiNode> {
                         // Multi-line body (=> on own line, stmts indented below)
                         // or single-line body (=> stmt on same line)
                         if cursor.check_indent().is_some() {
-                            match parse_indented_block(cursor, source, parse_stmt) {
-                                Ok(stmts) => action.extend(stmts),
-                                Err(_) => {}
+                            if let Ok(stmts) = parse_indented_block(cursor, source, parse_stmt) {
+                                action.extend(stmts);
                             }
-                        } else {
-                            match parse_stmt(cursor, source) {
-                                Ok(stmt) => action.push(stmt),
-                                Err(_) => {}
-                            }
+                        } else if let Ok(stmt) = parse_stmt(cursor, source) {
+                            action.push(stmt);
                         }
                     }
                     Token::Dedent => {
