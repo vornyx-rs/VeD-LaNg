@@ -1,0 +1,5 @@
+
+-- hello.ved - A simple greeting program
+
+think main
+  give "Hello, VED v1.0!"

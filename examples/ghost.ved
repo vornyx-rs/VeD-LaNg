@@ -1,0 +1,13 @@
+-- ghost.ved - AI-native intent capture mode demo
+
+screen Dashboard
+  ghost on
+  -- show me a bar chart of user growth by week
+  -- add a dark mode toggle with system preference
+
+  box stats
+    words "Dashboard"
+
+  @lazy
+  box insights
+    words "Ghost suggestions appear in build artifacts"

@@ -1,0 +1,11 @@
+# Source files — compiled output is in out/
+src/
+tsconfig.json
+
+# npm artifacts
+node_modules/
+.vscode-test/
+*.vsix
+
+# Dev files
+.gitignore

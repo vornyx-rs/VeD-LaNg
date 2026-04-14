@@ -1,0 +1,33 @@
+-- futurist.ved - flagship futuristic VED sample
+
+screen NeoHome
+  stream: yes
+  ghost on
+  -- create a premium analytics launch surface
+  -- make interactions feel alive but safe
+
+  remember isReady = yes
+
+  box hero
+    fill: #111827
+    gap: 12
+
+    words "VED Futurist"
+      size: 34
+
+    words "One language. Web, native, server."
+
+    tap "Launch"
+      guard: isReady
+      confirm: yes
+      give "launch"
+
+  box motion
+    animate: spring { stiffness: 120, damping: 14, mass: 1 }
+    pan: horizontal { on release: next velocity: 0.5 offset: 30% }
+    words "Flow-ready interactions"
+
+  @lazy
+  box insights
+    words "Hydrates when visible"
+    words "Ready state is guarded + confirmed"

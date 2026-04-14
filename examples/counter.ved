@@ -1,0 +1,41 @@
+-- counter.ved — interactive counter with spring animations
+-- Build: vedc build examples/counter.ved --target web --out dist/counter
+
+screen Counter
+  remember count = 0
+
+  box main
+    center: both
+    gap: 24
+    fill: #0a0a0a
+
+    words "{count}"
+      size: 96
+      weight: fat
+      color: #7f6fe8
+
+    box buttons
+      flow: across
+      gap: 16
+
+      tap "−"
+        fill: #333
+        radius: 12
+        padding: 16 24
+        hover:
+          scale: 1.05
+          physics: spring
+        => count = count - 1
+
+      tap "+"
+        fill: #7f6fe8
+        radius: 12
+        padding: 16 24
+        hover:
+          scale: 1.05
+          physics: spring
+        => count = count + 1
+
+    words "Tap buttons to animate"
+      size: 12
+      color: #444

@@ -1,0 +1,12 @@
+-- Simple screen test
+
+screen Main
+  box main
+    fill: #0a0a0a
+  
+  tap "Click"
+    fill: #7f6fe8
+    => println "clicked"
+
+think main
+  give 42

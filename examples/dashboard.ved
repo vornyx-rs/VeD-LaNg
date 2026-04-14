@@ -1,0 +1,63 @@
+-- Real-time dashboard with data fetching
+-- Build: vedc build examples/dashboard.ved --target web
+
+screen Dashboard
+  remember timeRange = "7d"
+  remember metrics = fetch "/api/metrics"
+    when: [timeRange]
+    cache: 1min
+  
+  box
+    fill: #0a0a0a
+    padding: 24
+    gap: 20
+    
+    words "Analytics Dashboard"
+      size: 24
+      weight: fat
+    
+    box filters
+      flow: across
+      gap: 8
+      
+      each range in ["24h", "7d", "30d"]
+        tap range
+          fill: timeRange == range ? #7f6fe8 : #1a1a1a
+          radius: 6
+          padding: 8 16
+          => timeRange = range
+    
+    when metrics
+      some data => showMetrics(data)
+      none => loadingSpinner()
+
+think showMetrics needs data: Metrics
+  box metrics
+    flow: across
+    gap: 16
+    
+    metricCard "Users", data.users, "#7f6fe8"
+    metricCard "Revenue", data.revenue, "#4ade80"
+    metricCard "Churn", data.churn, "#f87171"
+
+think metricCard needs title: text, value: num, color: text
+  box card
+    fill: #1a1a1a
+    radius: 8
+    padding: 16
+    tall: 100
+    
+    words title
+      size: 12
+      color: #888
+    
+    words "{value}"
+      size: 32
+      weight: fat
+      color: color
+
+think loadingSpinner
+  box
+    center: both
+    words "Loading..."
+      color: #666

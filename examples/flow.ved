@@ -1,0 +1,16 @@
+-- flow.ved - Physics animation + gesture carousel demo
+
+screen Onboarding
+  remember slide = 0
+
+  box carousel
+    snap: yes
+    animate: spring { stiffness: 120, damping: 14, mass: 1 }
+    pan: horizontal { on release: next velocity: 0.5 offset: 30% }
+
+    words "Welcome to VED"
+    words "Slide: {slide}"
+
+    tap "Next"
+      =>
+        slide = slide + 1

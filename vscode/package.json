@@ -1,0 +1,171 @@
+{
+  "name": "ved-lang",
+  "displayName": "VED Language",
+  "description": "Syntax highlighting, bracket matching, and language support for the VED programming language.",
+  "version": "1.0.0",
+  "publisher": "vornyxrs",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "ved",
+    "ved-lang",
+    "language",
+    "compiler",
+    "wasm",
+    "web"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vornyx-rs/VED-Language"
+  },
+  "license": "MIT OR Apache-2.0",
+  "icon": "icons/ved-icon.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "ved",
+        "aliases": [
+          "VED",
+          "ved"
+        ],
+        "extensions": [
+          ".ved"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./icons/ved-file-icon-light.png",
+          "dark": "./icons/ved-file-icon-dark.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "ved",
+        "scopeName": "source.ved",
+        "path": "./syntaxes/ved.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "ved",
+        "path": "./snippets/ved.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "ved.runFile",
+        "title": "VED: Run File",
+        "category": "VED"
+      },
+      {
+        "command": "ved.buildFile",
+        "title": "VED: Build File",
+        "category": "VED"
+      },
+      {
+        "command": "ved.checkFile",
+        "title": "VED: Check File (Type Check)",
+        "category": "VED"
+      },
+      {
+        "command": "ved.buildWeb",
+        "title": "VED: Build for Web (WASM)",
+        "category": "VED"
+      },
+      {
+        "command": "ved.buildServer",
+        "title": "VED: Build for Server (Axum)",
+        "category": "VED"
+      },
+      {
+        "command": "ved.buildNative",
+        "title": "VED: Build Native Binary",
+        "category": "VED"
+      }
+    ],
+    "menus": {
+      "editor/title/run": [
+        {
+          "command": "ved.runFile",
+          "when": "resourceLangId == ved",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "ved.runFile",
+          "when": "resourceExtname == .ved",
+          "group": "ved@1"
+        },
+        {
+          "command": "ved.buildFile",
+          "when": "resourceExtname == .ved",
+          "group": "ved@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VED",
+      "properties": {
+        "ved.compilerPath": {
+          "type": "string",
+          "default": "vedc",
+          "description": "Path to the vedc compiler binary."
+        },
+        "ved.defaultTarget": {
+          "type": "string",
+          "enum": ["auto", "web", "bin", "server"],
+          "default": "auto",
+          "description": "Default build target."
+        },
+        "ved.outputDir": {
+          "type": "string",
+          "default": "dist",
+          "description": "Default output directory for builds."
+        },
+        "ved.verbose": {
+          "type": "boolean",
+          "default": false,
+          "description": "Pass --verbose to vedc commands."
+        }
+      }
+    },
+    "taskDefinitions": [
+      {
+        "type": "ved",
+        "required": ["task"],
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "The VED task to run."
+          },
+          "file": {
+            "type": "string",
+            "description": "The .ved source file."
+          },
+          "target": {
+            "type": "string",
+            "description": "Build target: auto, web, bin, server."
+          }
+        }
+      }
+    ]
+  },
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.20.0",
+    "typescript": "^5.0.0"
+  }
+}

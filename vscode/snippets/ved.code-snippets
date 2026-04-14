@@ -1,0 +1,203 @@
+{
+  "Think function": {
+    "prefix": "think",
+    "body": [
+      "think ${1:name} needs ${2:param}: ${3:type} -> ${4:type}",
+      "  ${0:give nothing}"
+    ],
+    "description": "Define a VED function"
+  },
+  "Think function (no params)": {
+    "prefix": "think0",
+    "body": [
+      "think ${1:name}",
+      "  ${0:give nothing}"
+    ],
+    "description": "Define a VED function with no parameters"
+  },
+  "Async think function": {
+    "prefix": "athink",
+    "body": [
+      "async think ${1:name} needs ${2:param}: ${3:type} -> ok[${4:type}, text]",
+      "  ${0:give nothing}"
+    ],
+    "description": "Define an async VED function"
+  },
+  "Screen": {
+    "prefix": "screen",
+    "body": [
+      "screen ${1:Name}",
+      "  remember ${2:count} = ${3:0}",
+      "",
+      "  box main",
+      "    fill: #${4:0a0a0a}",
+      "    center: both",
+      "    gap: ${5:24}",
+      "",
+      "    words \"${0:Hello}\""
+    ],
+    "description": "Define a VED screen"
+  },
+  "Piece (component)": {
+    "prefix": "piece",
+    "body": [
+      "piece ${1:Name} needs ${2:label}: text",
+      "  box",
+      "    words \"${0:{label}}\""
+    ],
+    "description": "Define a reusable VED component"
+  },
+  "Box": {
+    "prefix": "box",
+    "body": [
+      "box ${1:name}",
+      "  fill: #${2:ffffff}",
+      "  gap: ${3:16}",
+      "  ${0}"
+    ],
+    "description": "Define a layout box"
+  },
+  "Tap button": {
+    "prefix": "tap",
+    "body": [
+      "tap \"${1:Label}\"",
+      "  fill: #${2:7f6fe8}",
+      "  radius: ${3:8}",
+      "  => ${0}"
+    ],
+    "description": "Define a tap button"
+  },
+  "Shape": {
+    "prefix": "shape",
+    "body": [
+      "shape ${1:Name}",
+      "  ${2:field}: ${0:type}"
+    ],
+    "description": "Define a VED shape (struct)"
+  },
+  "When expression": {
+    "prefix": "when",
+    "body": [
+      "when",
+      "  ${1:condition} =>",
+      "    ${2:give nothing}",
+      "  otherwise =>",
+      "    ${0:give nothing}"
+    ],
+    "description": "When expression (pattern matching)"
+  },
+  "Each loop": {
+    "prefix": "each",
+    "body": [
+      "each ${1:item} in ${2:items}",
+      "  ${0}"
+    ],
+    "description": "Each loop over a collection"
+  },
+  "Serve (HTTP server)": {
+    "prefix": "serve",
+    "body": [
+      "serve ${1:Api}",
+      "  port: ${2:8080}",
+      "",
+      "  GET \"/${3:path}\" => ${4:handler}",
+      "",
+      "think ${4:handler}",
+      "  give { status: \"ok\" }"
+    ],
+    "description": "Define an HTTP server"
+  },
+  "Database": {
+    "prefix": "database",
+    "body": [
+      "database ${1:main}",
+      "  kind: ${2:sqlite}",
+      "  url: \"${3:sqlite:./app.db}\"",
+      "  pool: ${4:10}"
+    ],
+    "description": "Define a database connection"
+  },
+  "Remember (reactive state)": {
+    "prefix": "remember",
+    "body": [
+      "remember ${1:name} = ${0:value}"
+    ],
+    "description": "Declare reactive state"
+  },
+  "Fetch": {
+    "prefix": "fetch",
+    "body": [
+      "fetch ${1:data} from \"${2:/api/endpoint}\"",
+      "  cache: ${3:60s}",
+      "  loading: ${4:nothing}",
+      "  error: ${5:nothing}"
+    ],
+    "description": "Reactive data fetch"
+  },
+  "Routes": {
+    "prefix": "routes",
+    "body": [
+      "routes",
+      "  \"/\" => ${1:Home}",
+      "  \"/about\" => ${2:About}",
+      "  otherwise => ${3:NotFound}"
+    ],
+    "description": "Client-side routing"
+  },
+  "Live (WebSocket)": {
+    "prefix": "live",
+    "body": [
+      "live ${1:chat}",
+      "  path: \"/ws/${1:chat}\"",
+      "",
+      "  on connect ${2:user} =>",
+      "    broadcast \"system\" \"{${2:user}} joined\"",
+      "",
+      "  on message ${2:user}, ${3:msg} =>",
+      "    broadcast \"chat\" \"{ user: ${2:user}, text: ${3:msg} }\""
+    ],
+    "description": "Define a WebSocket handler"
+  },
+  "Task (background job)": {
+    "prefix": "task",
+    "body": [
+      "task ${1:cleanup}",
+      "  every: ${2:1h}",
+      "  ${0}"
+    ],
+    "description": "Define a background task"
+  },
+  "Auth JWT": {
+    "prefix": "auth",
+    "body": [
+      "auth jwt",
+      "  secret: env \"JWT_SECRET\"",
+      "  expires: ${1:24h}"
+    ],
+    "description": "Define JWT authentication"
+  },
+  "Animation (spring)": {
+    "prefix": "anim",
+    "body": [
+      "hover:",
+      "  ${1:scale}: ${2:1.02}",
+      "  physics: spring",
+      "    stiffness: ${3:120}",
+      "    damping: ${4:14}",
+      "    mass: ${5:1}"
+    ],
+    "description": "Spring animation on hover"
+  },
+  "Enter animation": {
+    "prefix": "enter",
+    "body": [
+      "enter:",
+      "  from: { opacity: 0, scale: 0.95 }",
+      "  to: { opacity: 1, scale: 1 }",
+      "  physics: spring",
+      "    stiffness: ${1:120}",
+      "    damping: ${2:14}"
+    ],
+    "description": "Enter animation"
+  }
+}

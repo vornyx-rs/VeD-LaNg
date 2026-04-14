@@ -1,0 +1,79 @@
+-- Full-stack auth example
+-- Build: vedc build examples/auth/app.ved --target fullstack
+
+screen Login
+  remember email = ""
+  remember password = ""
+  remember error = nothing
+  
+  box
+    center: both
+    gap: 16
+    fill: #0a0a0a
+    
+    words "Sign In"
+      size: 24
+      weight: fat
+    
+    when error
+      some msg => words msg
+        color: #ff4444
+        size: 14
+    
+    field email
+      placeholder: "Email"
+      type: email
+    
+    field password
+      placeholder: "Password"
+      type: password
+    
+    tap "Sign In"
+      fill: #7f6fe8
+      radius: 8
+      padding: 12
+      => doLogin()
+    
+    tap "Create Account"
+      color: #7f6fe8
+      => go "/register"
+
+think doLogin
+  let result = fetch "/api/login"
+    method: POST
+    body: { email: email, password: password }
+  
+  when result
+    ok token => 
+      saveAuth(token)
+      go "/dashboard"
+    fail e => 
+      error = some(e.message)
+
+screen Dashboard needs auth: Auth
+  remember user = fetch "/api/me"
+  
+  box
+    center: both
+    gap: 16
+    
+    words "Welcome, {user.name}!"
+      size: 24
+    
+    tap "Logout"
+      => logout()
+
+serve AuthApi
+  port: 8080
+  
+  POST "/api/login" => login
+  POST "/api/register" => register
+  GET "/api/me" => getMe (guard: auth)
+
+auth jwt
+  secret: env("JWT_SECRET")
+  expires: 24h
+
+database users
+  kind: postgres
+  url: env("DATABASE_URL")

@@ -1,0 +1,177 @@
+<svg width="900" height="420" viewBox="0 0 900 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="900" y2="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0%"   stop-color="#070B1A"/>
+      <stop offset="100%" stop-color="#040810"/>
+    </linearGradient>
+    <linearGradient id="pipeGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#1A2040"/>
+      <stop offset="100%" stop-color="#101830"/>
+    </linearGradient>
+    <linearGradient id="srcGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#2A1F5A"/>
+      <stop offset="100%" stop-color="#1A1340"/>
+    </linearGradient>
+    <linearGradient id="webGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#1C1040"/>
+      <stop offset="100%" stop-color="#120A30"/>
+    </linearGradient>
+    <linearGradient id="srvGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#0A2030"/>
+      <stop offset="100%" stop-color="#061820"/>
+    </linearGradient>
+    <linearGradient id="natGrad" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0%"   stop-color="#082A18"/>
+      <stop offset="100%" stop-color="#041A10"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arr"  markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#00C8FF" opacity="0.80"/>
+    </marker>
+    <marker id="arrW" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#5B2EFF" opacity="0.80"/>
+    </marker>
+    <marker id="arrS" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#00AAFF" opacity="0.80"/>
+    </marker>
+    <marker id="arrN" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#00EEB0" opacity="0.80"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="420" rx="12" fill="url(#bg)"/>
+
+  <!-- Grid -->
+  <g stroke="#FFFFFF" stroke-opacity="0.018" stroke-width="1">
+    <line x1="0" y1="60"  x2="900" y2="60"/>
+    <line x1="0" y1="140" x2="900" y2="140"/>
+    <line x1="0" y1="210" x2="900" y2="210"/>
+    <line x1="0" y1="280" x2="900" y2="280"/>
+    <line x1="0" y1="360" x2="900" y2="360"/>
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="42" text-anchor="middle" font-family="'Inter', system-ui, sans-serif"
+        font-size="15" font-weight="700" fill="#FFFFFF" opacity="0.60" letter-spacing="4">
+    VED  COMPILATION  PIPELINE
+  </text>
+  <line x1="180" y1="54" x2="720" y2="54" stroke="#00C8FF" stroke-opacity="0.10" stroke-width="1"/>
+
+  <!-- SOURCE FILE -->
+  <rect x="28" y="158" width="110" height="100" rx="8"
+        fill="url(#srcGrad)" stroke="#5B2EFF" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="83" y="196" text-anchor="middle" font-family="'SF Mono','Fira Code',monospace"
+        font-size="24" font-weight="700" fill="#7B52FF">.ved</text>
+  <text x="83" y="218" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="10" fill="#7B6FCC" letter-spacing="2">source file</text>
+  <line x1="48" y1="238" x2="118" y2="238" stroke="#5B2EFF" stroke-opacity="0.25" stroke-width="1"/>
+  <line x1="48" y1="248" x2="100" y2="248" stroke="#5B2EFF" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Source → Lexer -->
+  <line x1="140" y1="208" x2="176" y2="208" stroke="#00C8FF" stroke-opacity="0.55"
+        stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+  <!-- LEXER -->
+  <rect x="182" y="180" width="78" height="56" rx="6"
+        fill="url(#pipeGrad)" stroke="#3355FF" stroke-opacity="0.40" stroke-width="1.5"/>
+  <text x="221" y="204" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="11" font-weight="600" fill="#6688FF" letter-spacing="1.5">LEXER</text>
+  <text x="221" y="222" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="9" fill="#4466CC">tokens</text>
+
+  <!-- Lexer → Parser -->
+  <line x1="262" y1="208" x2="296" y2="208" stroke="#00C8FF" stroke-opacity="0.50"
+        stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+  <!-- PARSER -->
+  <rect x="302" y="180" width="78" height="56" rx="6"
+        fill="url(#pipeGrad)" stroke="#3355FF" stroke-opacity="0.40" stroke-width="1.5"/>
+  <text x="341" y="204" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="11" font-weight="600" fill="#6688FF" letter-spacing="1.5">PARSER</text>
+  <text x="341" y="222" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="9" fill="#4466CC">AST</text>
+
+  <!-- Parser → TypeChecker -->
+  <line x1="382" y1="208" x2="416" y2="208" stroke="#00C8FF" stroke-opacity="0.50"
+        stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+
+  <!-- TYPE CHECKER -->
+  <rect x="422" y="172" width="90" height="72" rx="6"
+        fill="url(#pipeGrad)" stroke="#3355FF" stroke-opacity="0.40" stroke-width="1.5"/>
+  <text x="467" y="197" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="10" font-weight="600" fill="#6688FF" letter-spacing="1">TYPE</text>
+  <text x="467" y="211" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="10" font-weight="600" fill="#6688FF" letter-spacing="1">CHECK</text>
+  <text x="467" y="230" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="9" fill="#4466CC">typed AST</text>
+
+  <!-- TypeChecker → Compiler Hub -->
+  <line x1="514" y1="208" x2="556" y2="208" stroke="#00C8FF" stroke-opacity="0.75"
+        stroke-width="2.5" marker-end="url(#arr)" filter="url(#glow)"/>
+
+  <!-- COMPILER HUB -->
+  <rect x="558" y="166" width="108" height="84" rx="8"
+        fill="#0E1428" stroke="#00C8FF" stroke-opacity="0.60" stroke-width="2"/>
+  <rect x="554" y="162" width="116" height="92" rx="10"
+        fill="none" stroke="#00C8FF" stroke-opacity="0.10" stroke-width="8"/>
+  <text x="612" y="196" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="12" font-weight="700" fill="#00C8FF" letter-spacing="1.5">COMPILER</text>
+  <text x="612" y="213" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="12" font-weight="700" fill="#00C8FF" letter-spacing="1.5">CORE</text>
+  <text x="612" y="236" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="9" fill="#4499BB" letter-spacing="1">vedc</text>
+
+  <!-- Fan-out arrows to three targets -->
+  <path d="M588,252 C588,285 700,285 700,318"
+        fill="none" stroke="#5B2EFF" stroke-opacity="0.60" stroke-width="2"
+        stroke-dasharray="5 3" marker-end="url(#arrW)"/>
+  <line x1="612" y1="252" x2="612" y2="318"
+        fill="none" stroke="#00AAFF" stroke-opacity="0.60" stroke-width="2"
+        stroke-dasharray="5 3" marker-end="url(#arrS)"/>
+  <path d="M636,252 C636,285 524,285 524,318"
+        fill="none" stroke="#00EEB0" stroke-opacity="0.60" stroke-width="2"
+        stroke-dasharray="5 3" marker-end="url(#arrN)"/>
+
+  <!-- TARGET: Web / WASM -->
+  <rect x="650" y="320" width="148" height="84" rx="8"
+        fill="url(#webGrad)" stroke="#5B2EFF" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="724" y="344" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="11" font-weight="700" fill="#7B52FF" letter-spacing="1">--target web</text>
+  <text x="724" y="362" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#5B44CC">app.wasm</text>
+  <text x="724" y="378" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#5B44CC">index.html</text>
+  <text x="724" y="394" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="9" fill="#3B2EA8" letter-spacing="0.5">Canvas 2D · Spring physics</text>
+
+  <!-- TARGET: Server / Axum -->
+  <rect x="490" y="320" width="148" height="84" rx="8"
+        fill="url(#srvGrad)" stroke="#00AAFF" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="564" y="344" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="11" font-weight="700" fill="#00AAFF" letter-spacing="1">--target server</text>
+  <text x="564" y="362" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#0088CC">src/main.rs</text>
+  <text x="564" y="378" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#0088CC">Cargo.toml</text>
+  <text x="564" y="394" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="9" fill="#006699" letter-spacing="0.5">Axum · sqlx · JWT</text>
+
+  <!-- TARGET: Native binary -->
+  <rect x="330" y="320" width="148" height="84" rx="8"
+        fill="url(#natGrad)" stroke="#00EEB0" stroke-opacity="0.55" stroke-width="1.5"/>
+  <text x="404" y="344" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="11" font-weight="700" fill="#00EEB0" letter-spacing="1">--target bin</text>
+  <text x="404" y="362" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#00AA80">main.rs → rustc</text>
+  <text x="404" y="378" text-anchor="middle" font-family="'SF Mono',monospace"
+        font-size="10" fill="#00AA80">./app</text>
+  <text x="404" y="394" text-anchor="middle" font-family="'Inter',system-ui,sans-serif"
+        font-size="9" fill="#007755" letter-spacing="0.5">Native binary · zero deps</text>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="898" height="418" rx="12"
+        fill="none" stroke="#00C8FF" stroke-opacity="0.08" stroke-width="2"/>
+</svg>

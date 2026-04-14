@@ -1,0 +1,76 @@
+-- websocket.ved - Real-time chat with WebSockets
+
+serve ChatServer
+  port: 3000
+
+  GET "/" => serveIndex
+
+live chat
+  path: "/ws"
+
+  on_connect userId =>
+    println "User connected: {userId}"
+    broadcast userJoined { id: userId }
+
+  on_message userId text =>
+    println "Message from {userId}: {text}"
+    broadcast message { user: userId, text: text }
+
+  on_leave userId =>
+    println "User left: {userId}"
+    broadcast userLeft { id: userId }
+
+screen Chat
+  remember messages = []
+  remember currentUser = ""
+  remember inputText = ""
+
+  box main
+    fill: #1a1a2e
+    padding: 20
+    gap: 16
+
+    words "VED Chat"
+      size: 28
+      weight: fat
+      color: #7f6fe8
+
+    box messagesArea
+      fill: #16213e
+      tall: 300
+      padding: 12
+      scroll: yes
+
+      each msg in messages
+        box message
+          fill: #0f3460
+          padding: 8
+          radius: 8
+          gap: 4
+
+          words "{msg.user}: {msg.text}"
+            color: white
+            size: 14
+
+    box inputArea
+      flow: across
+      gap: 8
+
+      field inputText
+        placeholder: "Type a message..."
+        fill: #16213e
+        color: white
+        tall: 40
+
+      tap "Send"
+        fill: #7f6fe8
+        color: white
+        padding: 12
+        =>
+          when inputText != ""
+            connect "ws://localhost:3000/ws"
+            push message { text: inputText }
+            inputText = ""
+
+think serveIndex -> text
+  => "<html><body><h1>VED Chat Server</h1></body></html>"

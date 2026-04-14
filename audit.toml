@@ -1,0 +1,16 @@
+[advisories]
+# RUSTSEC-2023-0071: Marvin Attack timing sidechannel in rsa 0.9.x
+# Via: sqlx 0.8 → sqlx-macros-core → sqlx-mysql → rsa. No upstream fix.
+# vedc is a compiler — it never performs RSA signing. Risk accepted until
+# rsa 0.10+ ships a fix. Track: https://github.com/RustCrypto/RSA/issues/19
+#
+# RUSTSEC-2024-0436: paste crate unmaintained
+# Via: wgpu (optional `webgpu` feature only). No security impact.
+#
+# RUSTSEC-2026-0097: rand 0.8.5 unsound with custom global logger
+# Via: tokio-tungstenite + sqlx-postgres. vedc installs no custom logger.
+ignore = [
+    "RUSTSEC-2023-0071",
+    "RUSTSEC-2024-0436",
+    "RUSTSEC-2026-0097",
+]

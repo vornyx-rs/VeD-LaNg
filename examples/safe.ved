@@ -1,0 +1,12 @@
+screen SafeDemo
+  stream: yes
+  remember canDelete = no
+
+  box Actions
+    tap "Delete record"
+      guard: canDelete
+      confirm: yes
+      => go "done"
+
+    tap "Toggle permission"
+      => canDelete = not canDelete

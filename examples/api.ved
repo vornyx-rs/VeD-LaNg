@@ -1,0 +1,46 @@
+-- api.ved - REST API server example
+
+serve Api
+  port: 8080
+  prefix: "/api/v1"
+
+  GET "/users" => listUsers
+  POST "/users" => createUser
+  GET "/users/:id" => getUser
+  PUT "/users/:id" => updateUser
+  DEL "/users/:id" => deleteUser
+
+  GET "/health" => healthCheck
+
+database main
+  kind: postgres
+  url: env "DATABASE_URL"
+  pool: 10
+
+shape User
+  id: num
+  name: text
+  email: text
+  created_at: text
+
+think listUsers -> ok[list[User] text]
+  => db all Users
+
+think createUser needs user: User -> ok[User text]
+  => db save Users user
+
+think getUser needs id: num -> ok[maybe[User] text]
+  => db one Users id
+
+think updateUser needs id: num, user: User -> ok[User text]
+  => db save Users user
+
+think deleteUser needs id: num -> ok[bool text]
+  => db remove Users id
+
+think healthCheck -> ok[text text]
+  => give { status: "ok", version: "0.1.0" }
+
+auth jwt
+  secret: env "JWT_SECRET"
+  expires: "24h"

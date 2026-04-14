@@ -1,0 +1,26 @@
+-- Server-side of todo app
+-- Run: vedc run examples/todo/server.ved --port 8080
+
+serve TodoApi
+  port: 8080
+  
+  GET "/todos" => listTodos
+  POST "/todos" => createTodo
+  PATCH "/todos/:id" => updateTodo
+  DEL "/todos/:id" => deleteTodo
+
+database main
+  kind: sqlite
+  url: "sqlite:todos.db"
+
+think listTodos
+  => db.all("SELECT * FROM todos ORDER BY id")
+
+think createTodo needs text: text
+  => db.save("todos", { text: text, done: 0, created_at: now() })
+
+think updateTodo needs id: num, done: bool
+  => db.update("todos", id, { done: done })
+
+think deleteTodo needs id: num
+  => db.remove("todos", id)

@@ -1,0 +1,74 @@
+-- Client-side of todo app
+-- Run: vedc run examples/todo/client.ved --port 3000
+
+screen TodoApp
+  remember todos = [
+    { id: 1, text: "Learn VED", done: no },
+    { id: 2, text: "Build app", done: no }
+  ]
+  remember newTodo = ""
+  
+  box
+    fill: #0a0a0a
+    padding: 32
+    gap: 16
+    center: across
+    
+    words "VED Todo"
+      size: 28
+      weight: fat
+    
+    box input-row
+      flow: across
+      gap: 12
+      
+      field newTodo
+        placeholder: "What needs to be done?"
+        fill: #1a1a1a
+        radius: 8
+        padding: 12 16
+      
+      tap "Add"
+        fill: #7f6fe8
+        radius: 8
+        padding: 12 20
+        => addTodo()
+    
+    each todo in todos
+      box todo-item
+        flow: across
+        fill: #1a1a1a
+        radius: 8
+        padding: 12 16
+        gap: 12
+        
+        tap checkbox
+          fill: todo.done ? #7f6fe8 : #333
+          radius: 4
+          size: 20
+          => toggleTodo(todo.id)
+        
+        words todo.text
+          fill: todo.done ? #666 : #fff
+          cut: line-through if todo.done
+        
+        tap "✕"
+          color: #ff4444
+          => deleteTodo(todo.id)
+
+think addTodo
+  when newTodo != ""
+    let id = len(todos) + 1
+    todos = todos + [{ id: id, text: newTodo, done: no }]
+    newTodo = ""
+
+think toggleTodo needs id: num
+  todos = each t in todos
+    when t.id == id
+      give t with done: not t.done
+    otherwise
+      give t
+
+think deleteTodo needs id: num
+  todos = keep t in todos
+    t.id != id

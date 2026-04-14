@@ -1,0 +1,19 @@
+-- live_collab.ved - Enhanced Live collaboration with CRDT + presence
+
+live whiteboard
+  path: "/live/board"
+  sync: automatic
+  presence: yes
+  transform: lww
+
+screen Board
+  stream: no
+  remember title = "Team Board"
+
+  box root
+    words "{title}"
+    words "Live collaboration enabled"
+
+  @lazy
+  box cursors
+    words "Presence cursors hydrate on demand"

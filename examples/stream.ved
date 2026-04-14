@@ -1,0 +1,23 @@
+-- stream.ved - Zero-hydration progressive enhancement demo
+
+screen ProductPage
+  stream: yes
+
+  box hero
+    fill: #ffffff
+    gap: 16
+
+    words "VED Stream"
+    words "Server-rendered first paint with lazy interactive islands"
+
+  @lazy
+  box faq
+    snap: yes
+    words "Interactive FAQ (hydrates when visible)"
+
+  @lazy
+  box cta
+    words "Try VED now"
+    tap "Get Started"
+      =>
+        give "clicked"
