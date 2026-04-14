@@ -2,7 +2,7 @@
 set -e
 
 VERSION="1.0.0"
-REPO="vornyx-rs/VED-Language"
+REPO="vornyx-rs/VeD-LaNg"
 
 detect_platform() {
     OS=$(uname -s | tr '[:upper:]' '[:lower:]')

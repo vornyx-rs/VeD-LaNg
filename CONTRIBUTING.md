@@ -36,44 +36,6 @@ Feature requests are welcome! Please:
 ### Pull Requests
 
 1. Fork the repository
-# Contributing to VED
-
-Thank you for your interest in contributing to VED! This document provides guidelines for contributing to the project.
-
-## Code of Conduct
-
-This project adheres to a code of conduct. By participating, you are expected to uphold this code:
-
-- Be respectful and inclusive
-- Welcome newcomers
-- Focus on constructive feedback
-- Accept responsibility for mistakes
-
-## How to Contribute
-
-### Reporting Bugs
-
-Before creating a bug report, please:
-
-1. Check if the issue already exists
-2. Use the latest version of VED
-3. Include:
-   - VED version (`vedc --version`)
-   - Operating system
-   - Minimal code example that reproduces the issue
-   - Expected vs actual behavior
-
-### Suggesting Features
-
-Feature requests are welcome! Please:
-
-1. Check if the feature has already been requested
-2. Describe the use case clearly
-3. Consider how it fits with VED's philosophy
-
-### Pull Requests
-
-1. Fork the repository
 2. Create a branch: `git checkout -b feature/my-feature`
 3. Make your changes
 4. Add tests if applicable
@@ -86,8 +48,8 @@ Feature requests are welcome! Please:
 
 ```bash
 # Clone
-git clone https://github.com/ved-lang/ved
-cd ved
+git clone https://github.com/vornyx-rs/VeD-LaNg
+cd VeD-LaNg
 
 # Build
 cargo build
@@ -101,8 +63,8 @@ cargo run -- run examples/hello.ved
 
 ## Project Structure
 
-```
-ved/
+```text
+VeD-LaNg/
 ├── src/
 │   ├── main.rs        -- CLI entry point
 │   ├── lexer/         -- Tokenization
@@ -115,6 +77,7 @@ ved/
 │   └── stdlib/        -- Built-in definitions
 ├── examples/          -- Example VED programs
 ├── tests/             -- Integration tests
+├── vscode/            -- VS Code extension
 └── docs/              -- Documentation
 ```
 

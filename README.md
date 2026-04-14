@@ -1,11 +1,17 @@
 # VED
 
-> A unified programming language for frontend, backend, and systems — compiled to WebAssembly, native binary, and server from one `.ved` source file.
+<div align="center">
+  <img src="assets/ved-logo.svg" alt="VED" width="160" height="160"/>
+  <img src="assets/hero.svg" alt="VED — full-stack apps with a single language" width="100%"/>
 
-[![CI](https://github.com/vornyx-rs/VED-Language/actions/workflows/ci.yml/badge.svg)](https://github.com/vornyx-rs/VED-Language/actions)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/vornyx-rs/VED-Language/releases)
+[![CI](https://github.com/vornyx-rs/VeD-LaNg/actions/workflows/ci.yml/badge.svg)](https://github.com/vornyx-rs/VeD-LaNg/actions)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/vornyx-rs/VeD-LaNg/releases)
 [![Tests](https://img.shields.io/badge/tests-47%20passing-green)](#testing)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue)](#license)
+
+</div>
+
+> A unified programming language for frontend, backend, and systems — compiled to WebAssembly, native binary, and server from one `.ved` source file.
 
 VED is a language with Python-style indentation that compiles to three targets from the same source:
 
@@ -44,16 +50,15 @@ The compiler (`vedc`) is written in Rust. The lexer uses [logos](https://github.
 **Linux / macOS (one-liner):**
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/vornyx-rs/VED-Language/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/vornyx-rs/VeD-LaNg/main/install.sh | bash
 ```
-
-**Windows:** download `vedc-windows-x86_64.zip` from the [latest release](https://github.com/vornyx-rs/VED-Language/releases/latest), extract, and add to PATH.
+**Windows:** download `vedc-windows-x86_64.zip` from the [latest release](https://github.com/vornyx-rs/VeD-LaNg/releases/latest), extract, and add to PATH.
 
 **From source (requires Rust 1.75+):**
 
 ```bash
-git clone https://github.com/vornyx-rs/VED-Language
-cd VED-Language
+git clone https://github.com/vornyx-rs/VeD-LaNg
+cd VeD-LaNg
 cargo build --release
 # binary: target/release/vedc
 ```
@@ -768,6 +773,8 @@ Honest accounting of what works and what doesn't.
 
 ## Architecture
 
+![VED compilation pipeline](assets/architecture.svg)
+
 ```text
 src/
 ├── main.rs           CLI entrypoint (clap subcommands, target detection)
@@ -810,8 +817,8 @@ src/
 Requirements: Rust 1.75+, cargo
 
 ```bash
-git clone https://github.com/ved-lang/ved
-cd ved
+git clone https://github.com/vornyx-rs/VeD-LaNg
+cd VeD-LaNg
 cargo build --release
 ```
 
@@ -855,7 +862,7 @@ Test distribution:
 
 ### VS Code Extension
 
-The `editors/vscode/` directory contains a complete VS Code extension providing:
+The `vscode/` directory contains a complete VS Code extension providing:
 
 - Syntax highlighting for all VED keywords, types, operators, string interpolation, and color literals
 - Bracket matching and auto-close for `()`, `[]`, `{}`
@@ -868,7 +875,7 @@ The `editors/vscode/` directory contains a complete VS Code extension providing:
 **Install from source:**
 
 ```bash
-cd editors/vscode
+cd vscode
 npm install
 npm run package       # produces ved-lang-1.0.0.vsix
 code --install-extension ved-lang-1.0.0.vsix

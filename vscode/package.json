@@ -20,7 +20,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/vornyx-rs/VED-Language"
+    "url": "https://github.com/vornyx-rs/VeD-LaNg"
   },
   "license": "MIT OR Apache-2.0",
   "icon": "icons/ved-icon.png",

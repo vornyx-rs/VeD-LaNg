@@ -28,7 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   `render_piece_*()` alongside the logic function.
 - **Auto WASM build** — `vedc build --target web` invokes `cargo build --target wasm32-unknown-unknown`
   automatically and copies `app.wasm` to the output directory.
-- **VS Code extension** — full extension in `editors/vscode/` with syntax highlighting,
+- **VS Code extension** — full extension in `vscode/` with syntax highlighting,
   snippets, command palette integration, and configurable compiler path.
 - **`audit.toml`** — three accepted advisories documented with justification; `cargo audit`
   exits 0 with `--ignore` flags.
@@ -95,5 +95,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - CLI with `run`, `build`, `check`, `fmt`, `test`, `new` commands.
 - MIT and Apache-2.0 dual licensing.
 
-[1.0.0]: https://github.com/ved-lang/ved/compare/v0.1.0...v1.0.0
-[0.1.0]: https://github.com/ved-lang/ved/releases/tag/v0.1.0
+[1.0.0]: https://github.com/vornyx-rs/VeD-LaNg/compare/v0.1.0...v1.0.0
+[0.1.0]: https://github.com/vornyx-rs/VeD-LaNg/releases/tag/v0.1.0
