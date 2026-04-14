@@ -11,6 +11,11 @@
 
 </div>
 
+## Vibe Coded
+
+This project was built for fun — a vibe coding experiment to see how far a language compiler can be taken in one go. It is not backed by a company or team. There are known gaps (see [Implementation Status](#implementation-status)). If you find something broken, open an issue rather than a meme. Contributions are genuinely welcome.
+
+---
 > A unified programming language for frontend, backend, and systems — compiled to WebAssembly, native binary, and server from one `.ved` source file.
 
 VED is a language with Python-style indentation that compiles to three targets from the same source:
@@ -907,11 +912,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Key areas where contributions are most n
 
 ---
 
-## Vibe Coded
 
-This project was built for fun — a vibe coding experiment to see how far a language compiler can be taken in one go. It is not backed by a company or team. There are known gaps (see [Implementation Status](#implementation-status)). If you find something broken, open an issue rather than a meme. Contributions are genuinely welcome.
-
----
 
 ## License
 
