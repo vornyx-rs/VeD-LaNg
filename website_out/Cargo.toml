@@ -1,0 +1,20 @@
+[package]
+name = "ved-app"
+version = "0.1.0"
+edition = "2021"
+
+# VED-compiled WASM — build: cargo build --target wasm32-unknown-unknown --release
+
+[lib]
+name = "website"
+crate-type = ["cdylib"]
+
+[dependencies]
+wee_alloc = "0.4"
+
+[profile.release]
+opt-level = "z"
+lto        = true
+codegen-units = 1
+strip      = true
+panic      = "abort"

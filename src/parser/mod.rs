@@ -1432,12 +1432,22 @@ fn parse_string_interpolation(s: &str, span: Span) -> Vec<TextPart> {
                 interp_content.push(c);
             }
         } else {
-            if c == '{' && chars.peek() != Some(&'{') {
-                in_interpolation = true;
-                if !current.is_empty() {
-                    parts.push(TextPart::Literal(current.clone()));
-                    current.clear();
+            if c == '{' {
+                if chars.peek() == Some(&'{') {
+                    // `{{` escape — consume both and emit a literal `{`
+                    chars.next();
+                    current.push('{');
+                } else {
+                    in_interpolation = true;
+                    if !current.is_empty() {
+                        parts.push(TextPart::Literal(current.clone()));
+                        current.clear();
+                    }
                 }
+            } else if c == '}' && chars.peek() == Some(&'}') {
+                // `}}` escape — consume both and emit a literal `}`
+                chars.next();
+                current.push('}');
             } else {
                 current.push(c);
             }
@@ -2021,6 +2031,9 @@ fn parse_box(cursor: &mut Cursor, source: &str, lazy: bool) -> ParseResult<UiNod
                     }
                     Token::KwFlow => {
                         cursor.advance();
+                        if cursor.check(&Token::Colon) {
+                            cursor.advance();
+                        }
                         if let Some(t) = cursor.peek() {
                             match &t.token {
                                 Token::ValDown => {
@@ -3422,26 +3435,46 @@ fn parse_show_when(cursor: &mut Cursor, source: &str) -> ParseResult<UiNode> {
 
     cursor.skip_newlines();
 
-    // Parse `some <binding> => <ui_call>` and `none => <ui_call>` arms
-    // as child nodes — simplified: just collect what follows as children
-    let children = Vec::new();
+    let mut children = Vec::new();
     if cursor.check_indent().is_some() {
-        cursor.advance();
+        cursor.advance(); // consume Indent
         loop {
             cursor.skip_newlines();
-            if cursor.check(&Token::Dedent) {
-                cursor.advance();
+            if cursor.check(&Token::Dedent) || cursor.is_eof() || cursor.check_end_of_block() {
+                if cursor.check(&Token::Dedent) {
+                    cursor.advance();
+                }
                 break;
             }
-            if cursor.is_eof() || cursor.check_end_of_block() {
+            // Skip extra indent tokens (same-level re-indents)
+            while cursor.check_indent().is_some() {
+                cursor.advance();
+            }
+            // Stop if we consumed indents and now see dedent/eof
+            if cursor.check(&Token::Dedent) || cursor.is_eof() || cursor.check_end_of_block() {
+                if cursor.check(&Token::Dedent) {
+                    cursor.advance();
+                }
                 break;
             }
-            if cursor.check_indent().is_some() {
-                cursor.advance();
-                continue;
+            // Parse an actual UI child node
+            match cursor.peek() {
+                Some(t) => match &t.token {
+                    Token::KwBox
+                    | Token::KwWords
+                    | Token::KwTap
+                    | Token::KwEach
+                    | Token::KwShow
+                    | Token::At => {
+                        match parse_ui_node(cursor, source) {
+                            Ok(node) => children.push(node),
+                            Err(_) => { cursor.advance(); }
+                        }
+                    }
+                    _ => { cursor.advance(); }
+                },
+                None => break,
             }
-            // Consume `some <binding> => <call>` and `none => <call>` arms as idents/exprs
-            cursor.advance();
         }
     }
 

@@ -1,0 +1,742 @@
+-- website.ved
+-- The official VED Language website — built entirely in VED, compiled to WASM.
+-- vedc build website.ved --target web --out website
+
+screen Website
+  remember page = 0
+  remember learn_step = 0
+
+  -- Root: layer so each page fills the full viewport
+  box root
+    fill: #0a0a0a
+    flow: layer
+
+    -- ═══════════════════════════ HOME ═══════════════════════════
+    show when page == 0
+      box home
+        fill: #0a0a0a
+        flow: down
+
+        box topnav
+          fill: #0d0d14
+          flow: across
+          gap: 10
+          padding: 18 48
+
+          words "VED"
+            size: 20
+            weight: fat
+            color: #7f6fe8
+
+          tap "Docs"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            hover:
+              scale: 1.03
+              physics: spring
+            => page = 1
+
+          tap "Learn"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            hover:
+              scale: 1.03
+              physics: spring
+            => page = 2
+
+          tap "Download"
+            fill: #7f6fe8
+            radius: 8
+            padding: 8 18
+            hover:
+              scale: 1.05
+              physics: spring
+            => page = 3
+
+        box hero
+          fill: #0a0a0a
+          center: both
+          gap: 18
+
+          words "Build apps."
+            size: 72
+            weight: fat
+            color: #ffffff
+
+          words "No HTML. No CSS. Just VED."
+            size: 26
+            color: #7f6fe8
+
+          words "Compiles to WASM. No frameworks. No node_modules. Pure canvas."
+            size: 14
+            color: #555
+
+          box pill_row
+            flow: across
+            gap: 12
+
+            words "WASM-native"
+              size: 12
+              color: #a097f0
+
+            words "·"
+              size: 12
+              color: #333
+
+            words "Spring physics"
+              size: 12
+              color: #a097f0
+
+            words "·"
+              size: 12
+              color: #333
+
+            words "Zero dependencies"
+              size: 12
+              color: #a097f0
+
+          box ctas
+            flow: across
+            gap: 12
+
+            tap "Get Started →"
+              fill: #7f6fe8
+              radius: 10
+              padding: 14 28
+              hover:
+                scale: 1.05
+                physics: spring
+              => page = 2
+
+            tap "GitHub"
+              fill: #1a1a26
+              radius: 10
+              padding: 14 28
+              hover:
+                scale: 1.03
+                physics: spring
+              => page = 0
+
+        box features
+          fill: #0a0a0a
+          flow: across
+          gap: 20
+          padding: 40 80
+
+          box feat1
+            fill: #111116
+            radius: 14
+            padding: 24 28
+            flow: down
+            gap: 10
+
+            words "WASM-first"
+              size: 15
+              weight: fat
+              color: #a097f0
+
+            words "Compiles to a native WASM binary."
+              size: 13
+              color: #555
+
+          box feat2
+            fill: #111116
+            radius: 14
+            padding: 24 28
+            flow: down
+            gap: 10
+
+            words "Canvas rendering"
+              size: 15
+              weight: fat
+              color: #a097f0
+
+            words "60fps. No DOM overhead. Ever."
+              size: 13
+              color: #555
+
+          box feat3
+            fill: #111116
+            radius: 14
+            padding: 24 28
+            flow: down
+            gap: 10
+
+            words "Spring physics"
+              size: 15
+              weight: fat
+              color: #a097f0
+
+            words "Built-in hover animations. No library."
+              size: 13
+              color: #555
+
+          box feat4
+            fill: #111116
+            radius: 14
+            padding: 24 28
+            flow: down
+            gap: 10
+
+            words "Full-stack"
+              size: 15
+              weight: fat
+              color: #a097f0
+
+            words "Web, native binary, and server targets."
+              size: 13
+              color: #555
+
+    -- ═══════════════════════════ DOCS ════════════════════════════
+    show when page == 1
+      box docs_page
+        fill: #0a0a0a
+        flow: down
+
+        box topnav
+          fill: #0d0d14
+          flow: across
+          gap: 10
+          padding: 18 48
+
+          tap "Home"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 0
+
+          words "Language Reference"
+            size: 14
+            color: #555
+
+          tap "Learn"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 2
+
+          tap "Download"
+            fill: #7f6fe8
+            radius: 8
+            padding: 8 18
+            => page = 3
+
+        box docs_body
+          fill: #0a0a0a
+          flow: down
+          padding: 40 80
+          gap: 16
+
+          words "Language Reference"
+            size: 34
+            weight: fat
+            color: #fff
+
+          box ref_screen
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "screen"
+              size: 15
+              weight: fat
+              color: #c084fc
+
+            words "Full-screen surface. Use remember inside for reactive state."
+              size: 13
+              color: #777
+
+          box ref_box
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "box"
+              size: 15
+              weight: fat
+              color: #7dd3fc
+
+            words "Layout container. fill  flow  gap  padding  radius  center  tall"
+              size: 13
+              color: #777
+
+          box ref_words
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "words"
+              size: 15
+              weight: fat
+              color: #86efac
+
+            words "Text node. size  weight  color  align  spacing"
+              size: 13
+              color: #777
+
+          box ref_tap
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "tap"
+              size: 15
+              weight: fat
+              color: #fb923c
+
+            words "Button with label + => action body. Supports hover animations."
+              size: 13
+              color: #777
+
+          box ref_think
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "think"
+              size: 15
+              weight: fat
+              color: #f9a8d4
+
+            words "Logic function. Typed params, statements, give to return a value."
+              size: 13
+              color: #777
+
+          box ref_piece
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "piece"
+              size: 15
+              weight: fat
+              color: #fde68a
+
+            words "Reusable UI component. Declare with needs for typed props."
+              size: 13
+              color: #777
+
+          box ref_serve
+            fill: #111116
+            radius: 12
+            padding: 18 24
+            flow: across
+            gap: 28
+
+            words "serve"
+              size: 15
+              weight: fat
+              color: #6ee7b7
+
+            words "HTTP server target. GET POST routes, port, prefix, middleware."
+              size: 13
+              color: #777
+
+          box cli_section
+            fill: #0a0a0a
+            flow: down
+            gap: 10
+
+            words "CLI Commands"
+              size: 18
+              weight: fat
+              color: #fff
+
+            box cli_run
+              fill: #111116
+              radius: 10
+              padding: 14 20
+              flow: across
+              gap: 24
+
+              words "vedc run file.ved"
+                size: 13
+                color: #7dd3fc
+
+              words "Build + serve in browser. Opens automatically."
+                size: 13
+                color: #666
+
+            box cli_build
+              fill: #111116
+              radius: 10
+              padding: 14 20
+              flow: across
+              gap: 24
+
+              words "vedc build file.ved --target web"
+                size: 13
+                color: #7dd3fc
+
+              words "Compile to WASM + HTML without serving."
+                size: 13
+                color: #666
+
+            box cli_check
+              fill: #111116
+              radius: 10
+              padding: 14 20
+              flow: across
+              gap: 24
+
+              words "vedc check file.ved"
+                size: 13
+                color: #7dd3fc
+
+              words "Type-check without building."
+                size: 13
+                color: #666
+
+          tap "Next: Learn →"
+            fill: #7f6fe8
+            radius: 10
+            padding: 12 24
+            hover:
+              scale: 1.04
+              physics: spring
+            => page = 2
+
+    -- ═══════════════════════════ LEARN ═══════════════════════════
+    show when page == 2
+      box learn_page
+        fill: #0a0a0a
+        flow: down
+
+        box topnav
+          fill: #0d0d14
+          flow: across
+          gap: 10
+          padding: 18 48
+
+          tap "Home"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 0
+
+          words "Learn VED"
+            size: 14
+            color: #555
+
+          tap "Docs"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 1
+
+          tap "Download"
+            fill: #7f6fe8
+            radius: 8
+            padding: 8 18
+            => page = 3
+
+        box learn_body
+          fill: #0a0a0a
+          flow: down
+          padding: 40 80
+          gap: 22
+
+          words "Learn VED"
+            size: 34
+            weight: fat
+            color: #fff
+
+          words "Step {learn_step} of 3"
+            size: 13
+            color: #444
+
+          show when learn_step == 0
+            box s0
+              fill: #111116
+              radius: 14
+              padding: 28 32
+              flow: down
+              gap: 14
+
+              words "1 — Your first screen"
+                size: 20
+                weight: fat
+                color: #7f6fe8
+
+              words "Every VED app starts with a screen block."
+                size: 13
+                color: #888
+
+              words "screen MyApp"
+                size: 13
+                color: #c084fc
+
+              words "  box main"
+                size: 13
+                color: #7dd3fc
+
+              words "    fill: #0a0a0a"
+                size: 13
+                color: #555
+
+              words "    words \"Hello, VED!\""
+                size: 13
+                color: #86efac
+
+              words "    size: 32"
+                size: 13
+                color: #555
+
+              tap "Next →"
+                fill: #7f6fe8
+                radius: 8
+                padding: 10 22
+                hover:
+                  scale: 1.04
+                  physics: spring
+                => learn_step = 1
+
+          show when learn_step == 1
+            box s1
+              fill: #111116
+              radius: 14
+              padding: 28 32
+              flow: down
+              gap: 14
+
+              words "2 — Reactive state"
+                size: 20
+                weight: fat
+                color: #7f6fe8
+
+              words "remember declares a reactive variable. Screen re-renders on change."
+                size: 13
+                color: #888
+
+              words "screen Counter"
+                size: 13
+                color: #c084fc
+
+              words "  remember count = 0"
+                size: 13
+                color: #86efac
+
+              words "  box main"
+                size: 13
+                color: #7dd3fc
+
+              words "    center: both"
+                size: 13
+                color: #555
+
+              words "    words \"{{count}}\""
+                size: 13
+                color: #86efac
+
+              words "      size: 96"
+                size: 13
+                color: #555
+
+              tap "Next →"
+                fill: #7f6fe8
+                radius: 8
+                padding: 10 22
+                hover:
+                  scale: 1.04
+                  physics: spring
+                => learn_step = 2
+
+          show when learn_step == 2
+            box s2
+              fill: #111116
+              radius: 14
+              padding: 28 32
+              flow: down
+              gap: 14
+
+              words "3 — Interactivity with tap"
+                size: 20
+                weight: fat
+                color: #7f6fe8
+
+              words "tap creates a button. The => body runs when tapped."
+                size: 13
+                color: #888
+
+              words "      tap \"+\""
+                size: 13
+                color: #c084fc
+
+              words "        fill: #7f6fe8"
+                size: 13
+                color: #555
+
+              words "        radius: 12"
+                size: 13
+                color: #555
+
+              words "        hover:"
+                size: 13
+                color: #555
+
+              words "          scale: 1.05"
+                size: 13
+                color: #555
+
+              words "        => count = count + 1"
+                size: 13
+                color: #86efac
+
+              box btns2
+                flow: across
+                gap: 12
+
+                tap "← Restart"
+                  fill: #1c1c28
+                  radius: 8
+                  padding: 10 22
+                  => learn_step = 0
+
+                tap "Download compiler"
+                  fill: #7f6fe8
+                  radius: 8
+                  padding: 10 22
+                  hover:
+                    scale: 1.04
+                    physics: spring
+                  => page = 3
+
+    -- ══════════════════════════ DOWNLOAD ═════════════════════════
+    show when page == 3
+      box dl_page
+        fill: #0a0a0a
+        flow: down
+
+        box topnav
+          fill: #0d0d14
+          flow: across
+          gap: 10
+          padding: 18 48
+
+          tap "Home"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 0
+
+          words "Download"
+            size: 14
+            color: #555
+
+          tap "Docs"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 1
+
+          tap "Learn"
+            fill: #1c1c28
+            radius: 8
+            padding: 8 18
+            => page = 2
+
+        box dl_body
+          fill: #0a0a0a
+          center: both
+          gap: 28
+
+          words "Get VED"
+            size: 42
+            weight: fat
+            color: #fff
+
+          words "Compiler + VS Code extension. Free forever."
+            size: 16
+            color: #555
+
+          box dl_options
+            flow: across
+            gap: 20
+
+            box dl_compiler
+              fill: #111116
+              radius: 14
+              padding: 28 32
+              flow: down
+              gap: 14
+
+              words "Compiler"
+                size: 18
+                weight: fat
+                color: #fff
+
+              words "vedc — Linux / macOS / Windows"
+                size: 13
+                color: #888
+
+              words "curl -sSf https://raw.githubusercontent.com/"
+                size: 11
+                color: #7dd3fc
+
+              words "vornyx-rs/VeD-LaNg/main/install.sh | sh"
+                size: 11
+                color: #7dd3fc
+
+              words "Or download binary from GitHub Releases."
+                size: 12
+                color: #555
+
+              tap "GitHub Releases"
+                fill: #7f6fe8
+                radius: 8
+                padding: 10 20
+                hover:
+                  scale: 1.04
+                  physics: spring
+                => page = 3
+
+            box dl_vscode
+              fill: #111116
+              radius: 14
+              padding: 28 32
+              flow: down
+              gap: 14
+
+              words "VS Code Extension"
+                size: 18
+                weight: fat
+                color: #fff
+
+              words "Syntax highlighting + snippets"
+                size: 13
+                color: #888
+
+              words "Search: ved-lang in marketplace"
+                size: 12
+                color: #7dd3fc
+
+              words "Or install the .vsix directly."
+                size: 12
+                color: #555
+
+              tap "Download .vsix"
+                fill: #333
+                radius: 8
+                padding: 10 20
+                hover:
+                  scale: 1.04
+                  physics: spring
+                => page = 3
+
+          words "MIT OR Apache-2.0 — open source forever"
+            size: 12
+            color: #333

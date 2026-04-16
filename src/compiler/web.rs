@@ -1496,10 +1496,20 @@ fn emit_show_when(
     indent: usize,
 ) -> String {
     let pad = "    ".repeat(indent);
-    let cond = expr_to_runtime(&node.cond, state_prefix);
+    let cond_raw = emit_tap_expr(&node.cond, state_prefix);
+    // Strip outer parens added by emit_tap_expr for BinOp — avoids Rust
+    // unused_parens warning in generated code.
+    let cond = if cond_raw.starts_with('(') && cond_raw.ends_with(')') {
+        cond_raw[1..cond_raw.len() - 1].to_string()
+    } else {
+        cond_raw
+    };
+    // Always render show_when children against the full viewport so that
+    // page-level show_when blocks (used for multi-page navigation) fill the
+    // entire canvas rather than a 0-height measurement rect.
     let inner = emit_nodes(
         &node.children,
-        "__pb",
+        "Rect { x: 0.0, y: 0.0, w: vw(), h: vh() }",
         state_prefix,
         tap_id,
         tap_actions,
